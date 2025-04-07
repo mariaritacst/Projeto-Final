@@ -1,1 +1,2 @@
-# Projeto-Final
+# Projeto-Final Lumière
+Este projeto é um sistema simples de gerenciamento de produtos de cabelo e cosméticos, desenvolvido em Java e utilizando MySQL para armazenamento dos dados. Ele oferece funcionalidades básicas de login e logout para autenticação de usuários, além de permitir o gerenciamento de produtos com operações de CRUD (Criar, Ler, Atualizar e Excluir). A estrutura do sistema conta com classes como DBHelper, responsável pela conexão com o banco de dados, e classes específicas para a manipulação dos produtos e gerenciamento de sessões de usuários. O objetivo é fornecer uma interface prática para o controle de produtos de cosméticos em um ambiente corporativo ou de vendas.
