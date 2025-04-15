@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Layout principal da tela de cadastro de produtos -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"  <!-- Define que o layout ocupa toda a largura da tela -->
+	android:layout_height="match_parent" <!-- Define que o layout ocupa toda a altura da tela -->
+	android:orientation="vertical"   	<!-- Organiza os elementos verticalmente -->
+	android:padding="16dp">          	<!-- Adiciona um espaçamento interno ao layout -->
+
+	<!-- Campo de entrada para o nome do produto -->
+	<EditText
+    	android:id="@+id/edtNome"  <!-- Identificador único do campo -->
+    	android:layout_width="match_parent" <!-- O campo ocupa toda a largura disponível -->
+    	android:layout_height="wrap_content" <!-- A altura se ajusta ao conteúdo -->
+    	android:hint="Nome do Produto" /> <!-- Texto de dica exibido quando o campo está vazio -->
+
+	<!-- Campo de entrada para o tipo do produto -->
+	<EditText
+    	android:id="@+id/edtTipo"  <!-- Identificador único do campo -->
+    	android:layout_width="match_parent" <!-- O campo ocupa toda a largura disponível -->
+    	android:layout_height="wrap_content" <!-- A altura se ajusta ao conteúdo -->
+    	android:hint="Tipo do Produto" /> <!-- Texto de dica exibido quando o campo está vazio -->
+
+	<!-- Campo de entrada para o preço do produto -->
+	<EditText
+    	android:id="@+id/edtPreco"  <!-- Identificador único do campo -->
+    	android:layout_width="match_parent" <!-- O campo ocupa toda a largura disponível -->
+    	android:layout_height="wrap_content" <!-- A altura se ajusta ao conteúdo -->
+    	android:hint="Preço" <!-- Texto de dica exibido quando o campo está vazio -->
+    	android:inputType="numberDecimal" /> <!-- Define que o campo aceita apenas números decimais -->
+
+	<!-- Botão para adicionar um novo produto -->
+	<Button
+    	android:id="@+id/btnAdicionar"  <!-- Identificador único do botão -->
+    	android:layout_width="match_parent" <!-- O botão ocupa toda a largura disponível -->
+    	android:layout_height="wrap_content" <!-- A altura se ajusta ao conteúdo -->
+    	android:text="Adicionar Produto" /> <!-- Texto exibido no botão -->
+
+	<!-- Lista que exibe os produtos cadastrados -->
+	<ListView
+    	android:id="@+id/listViewProdutos"  <!-- Identificador único da lista -->
+    	android:layout_width="match_parent" <!-- A lista ocupa toda a largura disponível -->
+    	android:layout_height="match_parent" /> <!-- A lista ocupa toda a altura disponível -->
+
+</LinearLayout>
+

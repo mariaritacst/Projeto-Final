@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Layout principal do aplicativo -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"  <!-- O layout ocupa toda a largura da tela -->
+	android:layout_height="match_parent" <!-- O layout ocupa toda a altura da tela -->
+	android:orientation="vertical"   	<!-- Os elementos serão organizados verticalmente -->
+	android:gravity="center"         	<!-- Centraliza os elementos dentro do layout -->
+	android:padding="16dp">          	<!-- Adiciona um espaçamento interno ao layout -->
+
+	<!-- Botão de logout -->
+	<Button
+    	android:id="@+id/buttonLogout"  <!-- Identificador único do botão -->
+    	android:layout_width="wrap_content" <!-- A largura se ajusta ao conteúdo do botão -->
+    	android:layout_height="wrap_content" <!-- A altura se ajusta ao conteúdo do botão -->
+    	android:text="Sair" /> <!-- Texto exibido no botão -->
+
+</LinearLayout>

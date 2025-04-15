@@ -1,0 +1,39 @@
+
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Layout principal do aplicativo -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"  <!-- O layout ocupa toda a largura da tela -->
+	android:layout_height="match_parent" <!-- O layout ocupa toda a altura da tela -->
+	android:orientation="vertical"   	<!-- Os elementos serão organizados verticalmente -->
+	android:padding="16dp">          <!-- Adiciona um espaçamento interno ao layout -->
+
+	<!-- Campo de entrada para o nome de usuário -->
+	<EditText
+    	android:id="@+id/editTextUsername"  <!-- Identificador único do campo -->
+    	android:layout_width="match_parent" <!-- O campo ocupa toda a largura disponível -->
+    	android:layout_height="wrap_content" <!-- A altura se ajusta ao conteúdo -->
+    	android:hint="Usuário" <!-- Texto de dica exibido quando o campo está vazio -->
+    	android:inputType="text" /> <!-- Define que o campo aceita entrada de texto comum -->
+
+	<!-- Campo de entrada para a senha -->
+	<EditText
+    	android:id="@+id/editTextPassword"  <!-- Identificador único do campo -->
+    	android:layout_width="match_parent" <!-- O campo ocupa toda a largura disponível -->
+    	android:layout_height="wrap_content" <!-- A altura se ajusta ao conteúdo -->
+    	android:hint="Senha" <!-- Texto de dica exibido quando o campo está vazio -->
+    	android:inputType="textPassword" <!-- Define que o campo aceita entrada de senha -->
+    	android:layout_marginTop="8dp" /> <!-- Espaçamento entre este campo e o anterior -->
+
+	<!-- Botão de login -->
+	<Button
+    	android:id="@+id/buttonLogin"  <!-- Identificador único do botão -->
+    	android:layout_width="match_parent" <!-- O botão ocupa toda a largura disponível -->
+    	android:layout_height="wrap_content" <!-- A altura se ajusta ao conteúdo -->
+    	android:layout_marginTop="16dp" <!-- Espaçamento entre este botão e o campo de senha -->
+    	android:text="Entrar" /> <!-- Texto exibido no botão -->
+
+</LinearLayout>
+
+
+
