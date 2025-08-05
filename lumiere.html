@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lumière Cosméticos</title>
+  <style>
+    body {
+      background-color: #fffdf5;
+      color: #3a2f1d;
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      user-select: none;
+    }
+
+    .topo-oferta {
+      background: linear-gradient(to right, #ff4bb1, #ffa63b);
+      color: white;
+      text-align: center;
+      padding: 0.5rem;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    header.header {
+      background: #000000;
+      border-bottom: 3px solid #c5a017;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+      position: relative;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    header .logo {
+      height: 120px;
+      transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
+      cursor: pointer;
+    }
+
+    header .logo:hover {
+      transform: scale(1.1);
+      filter: drop-shadow(0 0 10px #c5a017);
+    }
+
+    header .slogan {
+      color: #c5a017;
+      font-weight: bold;
+      width: 100%;
+      text-align: center;
+      font-size: 1.1rem;
+      margin: 0;
+    }
+
+    .favoritar {
+      position: absolute;
+      top: -12px;
+      left: -12px;
+      background: white;
+      border: none;
+      font-size: 20px;
+      color: #ff4d9d;
+      border-radius: 50%;
+      width: 34px;
+      height: 34px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition: transform 0.2s, background 0.2s;
+      display: none !important;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .favoritar:hover {
+      transform: scale(1.1);
+    }
+
+    .icones {
+      position: absolute;
+      right: 1rem;
+      top: 1rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: nowrap;
+    }
+
+    .icones a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.9rem;
+      white-space: nowrap;
+      user-select: none;
+    }
+
+    .busca {
+      text-align: center;
+      margin: 1rem 0;
+      width: 100%;
+    }
+
+    .busca input {
+      padding: 0.5rem;
+      border: 1px solid #c5a017;
+      border-radius: 5px 0 0 5px;
+      width: 280px;
+      max-width: 80vw;
+      font-size: 1rem;
+      outline-offset: 2px;
+    }
+
+    .busca button {
+      padding: 0.5rem 1rem;
+      border: none;
+      background-color: #c5a017;
+      color: white;
+      border-radius: 0 5px 5px 0;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+      user-select: none;
+    }
+
+    .busca button:hover {
+      background-color: #a88411;
+    }
+
+    nav.menu-horizontal {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #fffdf5;
+      border-top: 1px solid #f0e0aa;
+      border-bottom: 2px solid #c5a017;
+      padding: 0.5rem 2rem;
+      flex-wrap: wrap;
+      gap: 10px;
+      user-select: none;
+    }
+
+    nav.menu-horizontal ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+      margin: 0;
+      padding: 0;
+      flex-wrap: wrap;
+    }
+
+    nav.menu-horizontal li {
+      position: relative;
+      cursor: pointer;
+    }
+
+    nav.menu-horizontal a {
+      text-decoration: none;
+      color: #3a2f1d;
+      transition: color 0.3s;
+    }
+
+    nav.menu-horizontal a:hover {
+      color: #c5a017;
+    }
+
+    .submenu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #fffdf5;
+      border: 1px solid #f6e27f;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      padding: 0.5rem 0;
+      z-index: 1000;
+      min-width: 150px;
+      border-radius: 6px;
+      user-select: none;
+    }
+
+    .submenu li {
+      padding: 0.3rem 1.5rem;
+      white-space: nowrap;
+    }
+
+    .submenu li a {
+      color: #3a2f1d;
+      display: block;
+    }
+
+    .submenu li a:hover {
+      color: #c5a017;
+    }
+
+    .dropdown:hover > .submenu {
+      display: none;
+    }
+
+    .quiz-btn {
+      background-color: #ffd7e6;
+      color: #c41b6b;
+      padding: 0.5rem 1rem;
+      border-radius: 10px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: background 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .quiz-btn:hover {
+      background-color: #ffc2db;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem 3rem;
+    }
+
+    section.produtos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem 0;
+    }
+
+    .produto {
+        position: relative; /* container para o posicionamento absoluto do favoritar */
+        border: 2px solid #f6e27f;
+        box-shadow: 0 0 10px rgba(198, 160, 39, 0.15);
+        padding: 1rem;
+        border-radius: 10px;
+        background-color: #fff;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+        transition: transform 0.3s ease;
+        user-select: none;
+      }
+
+      .produto:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 10px 20px rgba(198, 160, 39, 0.3);
+      }
+
+      .produto img {
+        max-width: 150px;
+        margin: 0 auto 1rem;
+        border-radius: 8px;
+        object-fit: contain;
+      }
+
+      .produto h3 {
+        color: #c5a017;
+        font-size: 1rem;
+        margin: 0 0 0.6rem;
+        flex-grow: 1;
+      }
+
+      .produto .favoritar {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: white;
+        border: none;
+        font-size: 20px;
+        color: #ff4d9d;
+        border-radius: 50%;
+        width: 34px;
+        height: 34px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.2s, background 0.2s;
+      }
+
+      .produto .favoritar:hover {
+        transform: scale(1.1);
+      }
+
+
+    .produto p {
+      font-weight: 600;
+      margin: 0 0 0.8rem;
+      font-size: 1.1rem;
+      color: #3a2f1d;
+    }
+
+    .produto button {
+      background-color: #c5a017;
+      color: white;
+      border: none;
+      padding: 0.6rem 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+
+    .produto button:hover {
+      background-color: #a88411;
+    }
+
+    section.hair-types {
+      margin-top: 3rem;
+      text-align: center;
+    }
+
+    section.hair-types h2 {
+      color: #c41b6b;
+      margin-bottom: 1.5rem;
+      font-size: 1.8rem;
+      user-select: none;
+    }
+
+    .hair-types .hair-type {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0 1rem 1.5rem;
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      user-select: none;
+    }
+
+    .hair-types .hair-type:hover {
+      transform: scale(1.1);
+    }
+
+    .hair-types img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 0 8px rgba(196, 27, 107, 0.6);
+      margin-bottom: 0.5rem;
+      border: 3px solid #c41b6b;
+      user-select: none;
+    }
+
+    .hair-types span {
+      font-weight: 600;
+      font-size: 1rem;
+      text-transform: capitalize;
+      user-select: none;
+    }
+
+    section.banner-gradient {
+      background: linear-gradient(to right, #ff4bb1, #ffa63b);
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+      margin-top: 3rem;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 1.8rem;
+      box-shadow: 0 5px 15px rgba(255, 75, 177, 0.5);
+      user-select: none;
+    }
+
+    footer {
+      background-color: #f6e27f;
+      color: #3a2f1d;
+      text-align: center;
+      padding: 1rem;
+      font-weight: 600;
+      user-select: none;
+      border-top: 2px solid #c5a017;
+    }
+
+    /* Toast Notification */
+    .toast-notificacao {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background-color: #a38649;
+      color: #fffdf5;
+      padding: 1rem 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(58, 47, 29, 0.3);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-20px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      min-width: 220px;
+      user-select: none;
+    }
+
+    .toast-notificacao.show {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .fechar-btn {
+      background: none;
+      border: none;
+      color: #fffdf5;
+      font-weight: 700;
+      font-size: 1.2rem;
+      cursor: pointer;
+      padding: 0;
+      line-height: 1;
+      margin-left: auto;
+      user-select: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="topo-oferta">
+    Que tal 10% OFF no seu primeiro pedido? Use o cupom <strong>PRIMEIRACOMPRA</strong> no carrinho!
+  </div>
+
+  <header class="header">
+    <img src="lumiere.png" alt="Logo Lumière" class="logo" />
+    <p class="slogan">Bem-vindo à elegância da beleza</p>
+    <div class="icones">
+      <a href="favoritos.html">❤️ Favoritos</a>
+      <a href="atendimento.html">🎧 Atendimento</a>
+      <a href="login.html">👤 Minha Conta</a>
+      <a href="carrinho.html">🛍️ Sacola</a>
+    </div>
+  </header>
+
+  <div class="busca">
+    <input type="text" placeholder="Pesquise aqui" />
+    <button>Buscar</button>
+  </div>
+
+  <nav class="menu-horizontal">
+    <ul>
+      <li class="dropdown">Categorias ▾
+        <ul class="submenu">
+          <li><a href="cacheado.html">Cacheados</a></li>
+          <li><a href="ondulado.html">Ondulados</a></li>
+          <li><a href="liso.html">Lisos</a></li>
+          <li><a href="crespo.html">Crespos</a></li>
+          <li><a href="tingido.html">Tingidos</a></li>
+          <li><a href="quimica.html">Com Química</a></li>
+        </ul>
+      </li>
+      <li><a href="#">Shampoo</a></li>
+      <li><a href="#">Condicionador</a></li>
+      <li><a href="#">Creme de Pentear</a></li>
+      <li class="dropdown">Finalizador ▾
+        <ul class="submenu">
+          <li><a href="#">Leave In</a></li>
+          <li><a href="#">Spray de Brilho</a></li>
+          <li><a href="#">Sérum</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">Máscara de Tratamento ▾
+        <ul class="submenu">
+          <li><a href="#">Hidratação</a></li>
+          <li><a href="#">Nutrição</a></li>
+          <li><a href="#">Reconstrução</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">Tratamento Capilar ▾
+        <ul class="submenu">
+          <li><a href="#">Tônico</a></li>
+          <li><a href="#">Acidificante</a></li>
+          <li><a href="#">Alinhamento</a></li>
+        </ul>
+      </li>
+      <li><a href="#">Kits Lumière</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section class="produtos">
+      <article class="produto">
+        <button class="favoritar" onclick="toggleFavorito(this, 'SHAMPOO HASKELL INFUSÃO DE ÓLEOS 500ML', 'shampoose.png')" aria-label="Favoritar Shampoo">
+          <img src="coracao-vazio.png" alt="Favoritar" />
+        </button>
+        <img src="shampoose.png" alt="Shampoo Lumière" />
+        <h3>SHAMPOO HASKELL INFUSÃO DE ÓLEOS 500ML</h3>
+        <p>R$ 61,01</p>
+        <button onclick="adicionarAoCarrinho('SHAMPOO HASKELL INFUSÃO DE ÓLEOS 500ML', 61.01, 'shampoose.png')">Adicionar ao carrinho</button>
+      </article>
+
+      <article class="produto">
+        <button class="favoritar" onclick="toggleFavorito(this, 'CONDICIONADOR HASKELL INFUSÃO DE ÓLEOS 500ML', 'condicionador.jpg')" aria-label="Favoritar Condicionador">
+          <img src="coracao-vazio.png" alt="Favoritar" />
+        </button>
+        <img src="condicionador.jpg" alt="Condicionador Lumière" />
+        <h3>CONDICIONADOR HASKELL INFUSÃO DE ÓLEOS 500ML</h3>
+        <p>R$ 67,28</p>
+        <button onclick="adicionarAoCarrinho('CONDICIONADOR HASKELL INFUSÃO DE ÓLEOS 500ML', 67.28, 'condicionador.jpg')">Adicionar ao carrinho</button>
+      </article>
+
+      <article class="produto">
+        <button class="favoritar" onclick="toggleFavorito(this, 'MÁSCARA DE TRATAMENTO HASKELL INFUSÃO DE ÓLEOS', 'mascara.jfif')" aria-label="Favoritar Máscara">
+          <img src="coracao-vazio.png" alt="Favoritar" />
+        </button>
+        <img src="mascara.jfif" alt="Máscara Capilar Lumière" />
+        <h3>MÁSCARA DE TRATAMENTO HASKELL INFUSÃO DE ÓLEOS</h3>
+        <p>R$ 46,90</p>
+        <button onclick="adicionarAoCarrinho('MÁSCARA DE TRATAMENTO HASKELL INFUSÃO DE ÓLEOS', 46.90, 'mascara.jfif')">Adicionar ao carrinho</button>
+      </article>
+    </section>
+
+    <section class="hair-types">
+      <h2>Qual o seu tipo de cabelo? 💁‍♀️</h2>
+      <a href="liso.html" class="hair-type">
+        <img src="liso.png" alt="Cabelo Liso" />
+        <span>liso</span>
+      </a>
+      <a href="ondulado.html" class="hair-type">
+        <img src="ondulado.png" alt="Cabelo Ondulado" />
+        <span>ondulado</span>
+      </a>
+      <a href="cacheado.html" class="hair-type">
+        <img src="cacheado.png" alt="Cabelo Cacheado" />
+        <span>cacheado</span>
+      </a>
+      <a href="crespo.html" class="hair-type">
+        <img src="crespo.png" alt="Cabelo Crespo" />
+        <span>crespo</span>
+      </a>
+      <a href="tingido.html" class="hair-type">
+        <img src="tingido.png" alt="Cabelo Tingido" />
+        <span>tingido</span>
+      </a>
+      <a href="quimica.html" class="hair-type">
+        <img src="quimica.png" alt="Com Química" />
+        <span>com química</span>
+      </a>
+    </section>
+
+    <section class="banner-gradient">
+      <h2>JUBINHAS MAIS PODEROSAS PRONTAS PARA BRILHAR!</h2>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Lumière Cosméticos. Todos os direitos reservados.</p>
+  </footer>
+
+  <!-- Notificação toast -->
+  <div id="toast" class="toast-notificacao" role="alert" aria-live="assertive" aria-atomic="true">
+    Produto adicionado ao carrinho!
+    <button class="fechar-btn" aria-label="Fechar notificação" onclick="fecharToast()">×</button>
+  </div>
+
+  <script>
+    // Adiciona produto ao carrinho no localStorage
+    function adicionarAoCarrinho(nome, preco, imagem) {
+      let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+
+      const itemExistente = carrinho.find(item => item.nome === nome);
+      if (itemExistente) {
+        itemExistente.qtd++;
+      } else {
+        carrinho.push({ nome, preco, qtd: 1, imagem });
+      }
+
+      localStorage.setItem('carrinho', JSON.stringify(carrinho));
+      mostrarToast();
+    }
+
+    // Mostrar notificação
+    function mostrarToast() {
+      const toast = document.getElementById('toast');
+      toast.classList.add('show');
+
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    // Fechar notificação ao clicar no X
+    function fecharToast() {
+      const toast = document.getElementById('toast');
+      toast.classList.remove('show');
+    }
+
+    // Menu dropdown com clique
+    document.querySelectorAll('.submenu').forEach(submenu => {
+      submenu.style.display = 'none';
+    });
+
+    document.querySelectorAll('.dropdown').forEach(item => {
+      item.addEventListener('click', function (e) {
+        e.stopPropagation();
+
+        const submenu = item.querySelector('.submenu');
+        const isVisible = submenu.style.display === 'block';
+
+        document.querySelectorAll('.submenu').forEach(menu => {
+          menu.style.display = 'none';
+        });
+
+        if (!isVisible) {
+          submenu.style.display = 'block';
+        }
+      });
+    });
+
+    document.addEventListener ('click', function (e) {
+      if (!e.target.closest('.dropdown')) {
+        document.querySelectorAll('.submenu').forEach(menu => {
+          menu.style.display = 'none';
+        });
+      }
+        function getFavoritos() {
+    return JSON.parse(localStorage.getItem("favoritos")) || [];
+  }
+
+  function salvarFavoritos(favoritos) {
+    localStorage.setItem("favoritos", JSON.stringify(favoritos));
+  }
+
+  function toggleFavorito(botao, nome, imagem) {
+    let favoritos = getFavoritos();
+    const index = favoritos.findIndex(p => p.nome === nome);
+function getFavoritos() {
+      return JSON.parse(localStorage.getItem("favoritos")) || [];
+    }
+
+    function salvarFavoritos(favoritos) {
+      localStorage.setItem("favoritos", JSON.stringify(favoritos));
+    }
+
+    function toggleFavorito(botao, nome, imagem) {
+      let favoritos = getFavoritos();
+      const index = favoritos.findIndex(p => p.nome === nome);
+      const img = botao.querySelector("img");
+
+      if (index === -1) {
+        favoritos.push({ nome, imagem });
+        img.src = "coracao-cheio.png";
+      } else {
+        favoritos.splice(index, 1);
+        img.src = "coracao-vazio.png";
+      }
+
+      salvarFavoritos(favoritos);
+    }
+  }
+    document.addEventListener("DOMContentLoaded", () => {
+      const favoritos = getFavoritos();
+      document.querySelectorAll(".favoritar").forEach(btn => {
+        const nome = btn.getAttribute("onclick").match(/'([^']+)'/)[1];
+        const img = btn.querySelector("img");
+        if (favoritos.find(p => p.nome === nome)) {
+          img.src = "coracao-cheio.png";
+        } else {
+          img.src = "coracao-vazio.png";
+        }
+      });
+    });  
+  });   
+  </script>
+
+</body>
+
+</html>

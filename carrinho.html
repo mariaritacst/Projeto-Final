@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Minha Sacola - Lumière Cosméticos</title>
+  <style>
+    /* (Aqui vai todo o seu CSS que você já enviou, igual ao original) */
+    body {
+      background-color: #fffdf5;
+      color: #3a2f1d;
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+     .btn-voltar {
+      position: fixed;
+      top: 3rem; /* aumento de distância do topo */
+      left: 1rem;
+      display: inline-block;
+      background-color: #f9c74f;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      transition: background-color 0.3s ease;
+      font-size: 0.95rem;
+      z-index: 1000;
+      width: max-content;
+    }
+
+    .btn-voltar:hover {
+      background-color: #000000;
+    }
+    .topo-oferta {
+      background-color: #c5a017;
+      color: white;
+      text-align: center;
+      padding: 0.5rem;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    .top-icons {
+      display: flex;
+      justify-content: flex-end;
+      padding: 0.5rem 1rem;
+      gap: 1rem;
+      background-color: #fff;
+    }
+
+    .top-icons a {
+      text-decoration: none;
+      color: #3a2f1d;
+      font-size: 0.9rem;
+    }
+
+    .logo {
+      display: block;
+      margin: 1rem auto 0.3rem;
+      max-width: 180px;
+    }
+
+    .slogan {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #a38c6d;
+      margin-bottom: 1.5rem;
+    }
+
+    main.sacola-container {
+      max-width: 700px;
+      margin: 3rem auto;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .sacola-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .sacola-header h2 {
+      margin: 0;
+      color: #3a2f1d;
+      font-size: 1.8rem;
+    }
+
+    .sacola-header .fechar {
+      background: none;
+      border: none;
+      font-size: 2rem;
+      color: #ccc;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .sacola-header .fechar:hover {
+      color: #dc3545;
+    }
+
+    .item-carrinho {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 15px 0;
+      border-bottom: 1px dashed #eee;
+    }
+
+    .item-carrinho img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
+    .item-info {
+      flex-grow: 1;
+    }
+
+    .item-info h3 {
+      margin: 0 0 5px 0;
+      font-size: 1.1rem;
+      color: #3a2f1d;
+    }
+
+    .item-info p.preco-unitario {
+      margin: 0;
+      font-weight: bold;
+      color: #c5a017;
+    }
+
+    .item-quantidade {
+      display: flex;
+      align-items: center;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .item-quantidade button {
+      background-color: #f0f0f0;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+      font-size: 1rem;
+      color: #555;
+    }
+
+    .item-quantidade button:hover {
+      background-color: #ddd;
+    }
+
+    .item-quantidade span {
+      padding: 5px 12px;
+      font-weight: bold;
+      color: #3a2f1d;
+    }
+
+    .item-remover {
+      background: none;
+      border: none;
+      color: #999;
+      font-size: 1.2rem;
+      cursor: pointer;
+      margin-left: 10px;
+      transition: color 0.3s ease;
+    }
+
+    .item-remover:hover {
+      color: #dc3545;
+    }
+
+    .frete-gratis-info {
+      background-color: #e6ffe6;
+      color: #008000;
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 0.95rem;
+    }
+
+    .cupom-section {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .cupom-section input {
+      flex-grow: 1;
+      padding: 0.8rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .cupom-section button {
+      background-color: #c5a017;
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .cupom-section button:hover {
+      background-color: #c5a017;
+    }
+
+    .resumo-sacola {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 15px;
+      border-top: 1px solid #eee;
+      margin-top: 20px;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .resumo-sacola .total {
+      color: #c5a017;
+    }
+
+    button.finalizar-compra-sacola {
+      display: block;
+      width: 100%;
+      padding: 1rem;
+      background-color: #c5a017;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    button.finalizar-compra-sacola:hover {
+      background-color: #c5a017;
+    }
+
+    @media (max-width: 600px) {
+      main.sacola-container {
+        margin: 1rem auto;
+        padding: 1rem;
+      }
+
+      .item-carrinho {
+        flex-wrap: wrap;
+        justify-content: center;
+        text-align: center;
+      }
+
+      .item-carrinho img {
+        margin-bottom: 10px;
+      }
+
+      .item-quantidade, .item-remover {
+        margin-top: 10px;
+      }
+
+      .item-remover {
+        margin-left: 0;
+      }
+       .icones {
+      position: absolute;
+      right: 1rem;
+      top: 1rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: nowrap;
+    }
+
+    .icones a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.9rem;
+      white-space: nowrap;
+      user-select: none;
+    }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="topo-oferta">
+    Que tal 10% OFF no seu primeiro pedido? Use o cupom <strong>PRIMEIRACOMPRA</strong> no carrinho!
+  </div>
+
+  <div class="top-icons">
+     <a href="lumiere.html" class="btn-voltar"> Voltar à Tela Inicial</a>
+    <a href="favoritos.html">❤️ Favoritos</a>
+      <a href="atendimento.html">🎧 Atendimento</a>
+      <a href="login.html">👤 Minha Conta</a>
+      <a href="carrinho.html">🛍️ Sacola</a>
+  </div>
+
+  <header>
+    <img src="lumiere.png" alt="Lumière Cosméticos Logo" class="logo">
+    <p class="slogan">Beleza que ilumina, você que encanta.</p>
+  </header>
+
+  <main class="sacola-container">
+    <div class="sacola-header">
+      <h2>Sacola</h2>
+      <button class="fechar" onclick="window.history.back()">×</button>
+    </div>
+
+    <div id="itens-sacola">
+      <p style="text-align: center;">Sua sacola está vazia.</p>
+    </div>
+
+    <div class="frete-gratis-info" id="frete-gratis-mensagem"></div>
+
+    <div class="cupom-section">
+      <input type="text" id="cupom-input" placeholder="Digite seu CUPOM">
+      <button id="aplicar-cupom">aplicar</button>
+    </div>
+
+    <div class="resumo-sacola">
+      <span>Total (sem frete):</span>
+      <span class="total" id="total-sacola">R$ 0,00</span>
+    </div>
+
+    <button class="finalizar-compra-sacola" onclick="location.href='finalizar.html'">Finalizar a compra</button>
+  </main>
+
+  <script>
+    function formatarPreco(valor) {
+      return "R$ " + valor.toFixed(2).replace('.', ',');
+    }
+
+    function carregarSacola() {
+      let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+      const itensSacolaDiv = document.getElementById('itens-sacola');
+      const totalSacolaEl = document.getElementById('total-sacola');
+      const freteGratisMensagemEl = document.getElementById('frete-gratis-mensagem');
+
+      itensSacolaDiv.innerHTML = '';
+      let subtotalGeral = 0;
+      const VALOR_MINIMO_FRETE_GRATIS = 150;
+
+      if (carrinho.length === 0) {
+        itensSacolaDiv.innerHTML = `<p style="text-align: center; color: #555;">Sua sacola está vazia.</p>`;
+        freteGratisMensagemEl.style.display = 'none';
+        document.querySelector('.finalizar-compra-sacola').disabled = true;
+      } else {
+        carrinho.forEach((item, index) => {
+          const itemDiv = document.createElement('div');
+          itemDiv.classList.add('item-carrinho');
+          itemDiv.innerHTML = `
+            <img src="${item.imagem || 'placeholder.jpg'}" alt="${item.nome}">
+            <div class="item-info">
+              <h3>${item.nome}</h3>
+              <p class="preco-unitario">${formatarPreco(item.preco)}</p>
+            </div>
+            <div class="item-quantidade">
+              <button class="decrementar-quantidade" data-index="${index}">-</button>
+              <span>${item.qtd}</span>
+              <button class="incrementar-quantidade" data-index="${index}">+</button>
+            </div>
+            <button class="item-remover" data-index="${index}">🗑️</button>
+          `;
+          itensSacolaDiv.appendChild(itemDiv);
+          subtotalGeral += item.preco * item.qtd;
+        });
+
+        // Botões de quantidade
+        itensSacolaDiv.querySelectorAll('.incrementar-quantidade').forEach(button => {
+          button.addEventListener('click', e => {
+            const index = parseInt(e.target.dataset.index);
+            carrinho[index].qtd++;
+            localStorage.setItem('carrinho', JSON.stringify(carrinho));
+            carregarSacola();
+          });
+        });
+
+        itensSacolaDiv.querySelectorAll('.decrementar-quantidade').forEach(button => {
+          button.addEventListener('click', e => {
+            const index = parseInt(e.target.dataset.index);
+            if (carrinho[index].qtd > 1) {
+              carrinho[index].qtd--;
+              localStorage.setItem('carrinho', JSON.stringify(carrinho));
+              carregarSacola();
+            }
+          });
+        });
+
+        // Botão remover item
+        itensSacolaDiv.querySelectorAll('.item-remover').forEach(button => {
+          button.addEventListener('click', e => {
+            const index = parseInt(e.target.dataset.index);
+            carrinho.splice(index, 1);
+            localStorage.setItem('carrinho', JSON.stringify(carrinho));
+            carregarSacola();
+          });
+        });
+
+        // Mensagem frete grátis
+        if (subtotalGeral < VALOR_MINIMO_FRETE_GRATIS) {
+          const restanteParaFrete = VALOR_MINIMO_FRETE_GRATIS - subtotalGeral;
+          freteGratisMensagemEl.style.display = 'block';
+          freteGratisMensagemEl.style.backgroundColor = '#e6ffe6';
+          freteGratisMensagemEl.style.color = '#008000';
+          freteGratisMensagemEl.textContent = `Ganhe frete grátis com mais ${formatarPreco(restanteParaFrete)}`;
+        } else {
+          freteGratisMensagemEl.style.display = 'block';
+          freteGratisMensagemEl.style.backgroundColor = '#d4edda';
+          freteGratisMensagemEl.style.color = '#155724';
+          freteGratisMensagemEl.textContent = `🎉 Você ganhou frete grátis!`;
+        }
+
+        document.querySelector('.finalizar-compra-sacola').disabled = false;
+      }
+
+      totalSacolaEl.textContent = formatarPreco(subtotalGeral);
+      return subtotalGeral;
+    }
+
+    document.getElementById('aplicar-cupom').addEventListener('click', () => {
+      const cupomInput = document.getElementById('cupom-input');
+      const cupom = cupomInput.value.trim().toUpperCase();
+      let subtotal = carregarSacola();
+
+      if (cupom === 'PRIMEIRACOMPRA') {
+        const desconto = subtotal * 0.10;
+        const totalComDesconto = subtotal - desconto;
+        document.getElementById('total-sacola').textContent = formatarPreco(totalComDesconto);
+        alert(`Cupom "${cupom}" aplicado! Você economizou ${formatarPreco(desconto)}.`);
+      } else if (cupom === '') {
+        alert('Por favor, digite um cupom.');
+      } else {
+        alert('Cupom inválido ou expirado.');
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', carregarSacola);
+  </script>
+
+</body>
+</html>

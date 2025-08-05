@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Finalizar Compra - Lumière Cosméticos</title>
+
+  <style>
+    /* Estilos básicos */
+    body {
+      background-color: #fffdf5;
+      color: #3a2f1d;
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .topo-oferta {
+      background: linear-gradient(to right, #ff4bb1, #ffa63b);
+      color: white;
+      text-align: center;
+      padding: 0.5rem;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    header.header {
+      background: #000000;
+      border-bottom: 3px solid #c5a017;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+      position: relative;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    header .logo {
+      height: 120px;
+      cursor: pointer;
+      transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
+    }
+
+    header .logo:hover {
+      transform: scale(1.1);
+      filter: drop-shadow(0 0 10px #c5a017);
+    }
+
+    header .slogan {
+      color: #c5a017;
+      font-weight: bold;
+      width: 100%;
+      text-align: center;
+      font-size: 1.1rem;
+      margin: 0;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 2rem auto 4rem;
+      padding: 0 1rem;
+    }
+
+    h1 {
+      color: #c5a017;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    form {
+      background: #fff;
+      border: 2px solid #c5a017;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 0 15px rgba(197, 160, 23, 0.3);
+      user-select: none;
+    }
+
+    fieldset {
+      border: none;
+      margin-bottom: 1.5rem;
+    }
+
+    legend {
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      color: #c5a017;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.3rem;
+      font-weight: 600;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="number"],
+    textarea {
+      width: 100%;
+      padding: 0.6rem 0.8rem;
+      margin-bottom: 1rem;
+      border: 1.5px solid #c5a017;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-family: inherit;
+      color: #3a2f1d;
+      resize: vertical;
+      outline-offset: 2px;
+      transition: border-color 0.3s;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="tel"]:focus,
+    input[type="number"]:focus,
+    textarea:focus {
+      border-color: #c5a017;
+    }
+
+    /* Estilos para mensagens de erro */
+    .erro-mensagem {
+      color: #dc3545;
+      font-size: 0.85em;
+      margin-top: -0.8rem;
+      margin-bottom: 1rem;
+      display: block;
+      height: 1em;
+    }
+
+    input:invalid {
+      border-color: #dc3545;
+    }
+
+    /* Resumo pedido */
+    .resumo-pedido {
+      background: #fff;
+      border: 2px solid #c5a017;
+      border-radius: 12px;
+      padding: 1rem;
+      box-shadow: 0 0 15px rgba(197, 160, 23, 0.3);
+      margin-top: 2rem;
+    }
+
+    .resumo-pedido h2 {
+      color: #c5a017;
+      margin-top: 0;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      user-select: none;
+    }
+
+    th,
+    td {
+      border: 1.5px solid #f6e27f;
+      padding: 0.6rem 0.8rem;
+      text-align: center;
+      font-size: 0.95rem;
+    }
+
+    th {
+      background-color: #f6e27f;
+      color: #3a2f1d;
+    }
+
+    tfoot td {
+      font-weight: 700;
+      color: #c5a017;
+      font-size: 1.1rem;
+    }
+
+    button.finalizar-compra {
+      display: block;
+      margin: 2rem auto 0;
+      background-color: #c5a017;
+      color: white;
+      font-weight: 700;
+      font-size: 1.2rem;
+      padding: 0.8rem 2rem;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, opacity 0.3s ease;
+      user-select: none;
+    }
+
+    button.finalizar-compra:not(:disabled):hover {
+      background-color: #dda51a;
+    }
+
+    button.finalizar-compra:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+
+    /* Link voltar */
+    .voltar {
+      display: block;
+      margin: 1rem auto 0 auto;
+      width: fit-content;
+      text-decoration: none;
+      color: #c5a017;
+      font-weight: 600;
+      user-select: none;
+    }
+
+    .voltar:hover {
+      text-decoration: underline;
+    }
+
+    /* Modal de confirmação */
+     #modal-confirmacao {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.6);
+        align-items: center;
+        justify-content: center;
+        }
+
+
+
+    #modal-confirmacao .modal-conteudo {
+      background: white;
+      border-radius: 15px;
+      padding: 2rem 3rem;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(197, 160, 23, 0.5);
+      color: #3a2f1d;
+    }
+
+    #modal-confirmacao .modal-conteudo h3 {
+      margin-top: 0;
+      color: #c5a017;
+    }
+
+    #modal-confirmacao .modal-conteudo button {
+      margin-top: 1.5rem;
+      padding: 0.6rem 1.8rem;
+      border: none;
+      border-radius: 25px;
+      background-color: #c5a017;
+      color: white;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    #modal-confirmacao .modal-conteudo button:hover {
+      background-color: #dda51a;
+    }
+
+    /* -------------------- Media Queries (Responsividade) -------------------- */
+    @media (max-width: 768px) {
+      header .logo {
+        height: 80px;
+      }
+
+      header .slogan {
+        font-size: 1rem;
+      }
+
+      main {
+        margin: 1rem auto 2rem;
+        padding: 0 0.5rem;
+      }
+
+      form {
+        padding: 1rem;
+      }
+
+      legend {
+        font-size: 1.1rem;
+      }
+
+      input[type="text"],
+      input[type="email"],
+      input[type="tel"],
+      input[type="number"],
+      textarea {
+        padding: 0.5rem 0.7rem;
+      }
+
+      button.finalizar-compra {
+        font-size: 1rem;
+        padding: 0.6rem 1.5rem;
+      }
+
+      table,
+      thead,
+      tbody,
+      th,
+      td,
+      tr {
+        display: block;
+      }
+
+      thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+      }
+
+      td {
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%;
+        text-align: right;
+      }
+
+      td:before {
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        text-align: left;
+        font-weight: bold;
+        color: #3a2f1d;
+      }
+
+      td:nth-of-type(1):before {
+        content: "Produto:";
+      }
+
+      td:nth-of-type(2):before {
+        content: "Qtd:";
+      }
+
+      td:nth-of-type(3):before {
+        content: "Preço Unit.:";
+      }
+
+      td:nth-of-type(4):before {
+        content: "Subtotal:";
+      }
+
+      tfoot td[colspan="3"] {
+        padding-left: 0;
+        text-align: right;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .topo-oferta {
+        font-size: 0.8rem;
+        padding: 0.3rem;
+      }
+
+      header .logo {
+        height: 60px;
+      }
+
+      header .slogan {
+        font-size: 0.9rem;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      form {
+        padding: 0.8rem;
+      }
+
+      legend {
+        font-size: 1.1rem;
+      }
+
+      th,
+      td {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topo-oferta">
+    Que tal 10% OFF no seu primeiro pedido? Use o cupom <strong>PRIMEIRACOMPRA</strong> no carrinho!
+  </div>
+
+  <header class="header">
+    <img src="lumiere.png" alt="Lumière Cosméticos Logo" class="logo" />
+    <p class="slogan">Beleza que ilumina, você que encanta.</p>
+  </header>
+
+  <main>
+    <h1>Finalizar Compra</h1>
+    <form id="form-finalizar" novalidate>
+      <fieldset>
+        <legend>Dados de Contato</legend>
+        <label for="nome">Nome completo:</label>
+        <input type="text" id="nome" name="nome" required />
+        <span class="erro-mensagem" id="erro-nome"></span>
+
+        <label for="email">E-mail:</label>
+        <input type="email" id="email" name="email" required />
+        <span class="erro-mensagem" id="erro-email"></span>
+
+        <label for="telefone">Telefone:</label>
+        <input type="tel" id="telefone" name="telefone" placeholder="(99) 99999-9999" required />
+        <span class="erro-mensagem" id="erro-telefone"></span>
+      </fieldset>
+
+      <fieldset>
+        <legend>Endereço de Entrega</legend>
+        <label for="cep">CEP:</label>
+        <input type="text" id="cep" name="cep" required />
+        <span class="erro-mensagem" id="erro-cep"></span>
+
+        <label for="endereco">Endereço:</label>
+        <input type="text" id="endereco" name="endereco" required />
+        <span class="erro-mensagem" id="erro-endereco"></span>
+
+        <label for="numero">Número:</label>
+        <input type="number" id="numero" name="numero" required />
+        <span class="erro-mensagem" id="erro-numero"></span>
+
+        <label for="complemento">Complemento:</label>
+        <input type="text" id="complemento" name="complemento" />
+        <span class="erro-mensagem" id="erro-complemento"></span>
+
+        <label for="bairro">Bairro:</label>
+        <input type="text" id="bairro" name="bairro" required />
+        <span class="erro-mensagem" id="erro-bairro"></span>
+
+        <label for="cidade">Cidade:</label>
+        <input type="text" id="cidade" name="cidade" required />
+        <span class="erro-mensagem" id="erro-cidade"></span>
+
+        <label for="estado">Estado:</label>
+        <input type="text" id="estado" name="estado" required />
+        <span class="erro-mensagem" id="erro-estado"></span>
+      </fieldset>
+
+      <div class="resumo-pedido">
+        <h2>Resumo do Pedido</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Produto</th>
+              <th>Qtd</th>
+              <th>Preço Unit.</th>
+              <th>Subtotal</th>
+            </tr>
+          </thead>
+          <tbody id="itens-pedido"></tbody>
+          <tfoot>
+            <tr>
+              <td colspan="3">Total</td>
+              <td id="total-pedido">R$ 0,00</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <button type="button" class="finalizar-compra" onclick="window.location.href='pagamento.html'">
+  Finalizar Compra
+</button>
+
+    </form>
+
+    <a href="produtos.html" class="voltar">← Voltar para a loja</a>
+  </main>
+
+  <!-- Modal de confirmação -->
+  <div id="modal-confirmacao">
+    <div class="modal-conteudo">
+      <h3>Compra realizada com sucesso!</h3>
+      <p>Obrigado pela sua compra! Seu pedido foi recebido.</p>
+      <button id="btn-fechar-modal">OK</button>
+    </div>
+  </div>
+  
+
+  <script>
+    function formatarPreco(valor) {
+      return "R$ " + valor.toFixed(2).replace('.', ',');
+    }
+
+    function carregarResumo() {
+      const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+      const tbody = document.getElementById('itens-pedido');
+      const totalPedidoEl = document.getElementById('total-pedido');
+      const btnFinalizar = document.querySelector('button.finalizar-compra');
+
+      tbody.innerHTML = '';
+      let total = 0;
+
+      if (carrinho.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;">Seu carrinho está vazio. Adicione produtos na loja.</td></tr>`;
+        btnFinalizar.disabled = true;
+      } else {
+        carrinho.forEach(item => {
+          const subtotal = item.preco * item.qtd;
+          total += subtotal;
+
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${item.nome}</td>
+            <td>${item.qtd}</td>
+            <td>${formatarPreco(item.preco)}</td>
+            <td>${formatarPreco(subtotal)}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+        btnFinalizar.disabled = false;
+      }
+
+      totalPedidoEl.textContent = formatarPreco(total);
+    }
+
+    function validarCampo(inputElement, errorMessageId) {
+      const erroSpan = document.getElementById(errorMessageId);
+      if (inputElement.validity.valueMissing) {
+        erroSpan.textContent = 'Este campo é obrigatório.';
+      } else if (inputElement.validity.typeMismatch) {
+        erroSpan.textContent = 'Por favor, insira um formato válido.';
+      } else {
+        erroSpan.textContent = '';
+      }
+    }
+
+    function mostrarModal() {
+      const modal = document.getElementById('modal-confirmacao');
+      modal.style.display = 'flex';
+    }
+
+    function esconderModal() {
+      const modal = document.getElementById('modal-confirmacao');
+      modal.style.display = 'none';
+      window.location.href = 'produtos.html'; // redireciona após fechar o modal
+    }
+
+    function finalizarCompra(event) {
+      event.preventDefault();
+      const form = event.target;
+
+      let formValido = true;
+      form.querySelectorAll('input[required]').forEach(input => {
+        validarCampo(input, `erro-${input.id}`);
+        if (!input.validity.valid) {
+          formValido = false;
+        }
+      });
+
+      if (!formValido) {
+        alert('Por favor, preencha todos os campos obrigatórios corretamente.');
+        return;
+      }
+
+      const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+      if (carrinho.length === 0) {
+        alert('Seu carrinho está vazio. Adicione produtos antes de finalizar a compra.');
+        return;
+      }
+
+      const pedido = {
+        cliente: {
+          nome: form.nome.value.trim(),
+          email: form.email.value.trim(),
+          telefone: form.telefone.value.trim(),
+          cep: form.cep.value.trim(),
+          endereco: form.endereco.value.trim(),
+          numero: form.numero.value.trim(),
+          complemento: form.complemento.value.trim(),
+          bairro: form.bairro.value.trim(),
+          cidade: form.cidade.value.trim(),
+          estado: form.estado.value.trim()
+        },
+        produtos: carrinho,
+        total: carrinho.reduce((acc, item) => acc + item.preco * item.qtd, 0)
+      };
+
+      // Garantir que modal está escondido antes do envio
+      document.getElementById('modal-confirmacao').style.display = 'none';
+
+      fetch('https://jsonplaceholder.typicode.com/posts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(pedido)
+      })
+        .then(response => {
+          if (!response.ok) {
+            return response.json()
+              .then(errorData => {
+                throw new Error(errorData.message || `Erro no servidor: ${response.status}`);
+              })
+              .catch(() => {
+                throw new Error(`Erro no servidor (status: ${response.status})`);
+              });
+          }
+          return response.json();
+        })
+        .then(data => {
+          mostrarModal();
+          form.reset();
+          localStorage.removeItem('carrinho');
+          carregarResumo();
+        })
+        .catch(err => {
+          alert(`Erro ao finalizar a compra. Por favor, tente novamente mais tarde. Detalhes: ${err.message}`);
+          console.error('Erro ao finalizar a compra:', err);
+        });
+    }
+
+    window.addEventListener('load', () => {
+      carregarResumo();
+
+      ['nome', 'email', 'telefone', 'cep', 'endereco', 'numero', 'bairro', 'cidade', 'estado'].forEach(id => {
+        const input = document.getElementById(id);
+        if (input) {
+          input.addEventListener('blur', (e) => validarCampo(e.target, `erro-${id}`));
+        }
+      });
+
+      document.getElementById('btn-fechar-modal').addEventListener('click', esconderModal);
+
+      const formFinalizar = document.getElementById('form-finalizar');
+      if (formFinalizar) {
+        formFinalizar.addEventListener('submit', finalizarCompra);
+      }
+    });
+  </script>
+</body>
+
+</html>

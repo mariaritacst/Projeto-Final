@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Central de Atendimento - Lumière</title>
+  <style>
+    body {
+      background-color: #fffdf5;
+      color: #3a2f1d;
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      user-select: none;
+    }
+
+    .topo-oferta {
+      background: linear-gradient(to right, #ff4bb1, #ffa63b);
+      color: white;
+      text-align: center;
+      padding: 0.5rem;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    header.header {
+      background: #000000;
+      border-bottom: 3px solid #c5a017;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+      position: relative;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .btn-voltar {
+      position: fixed;
+      top: 3rem; /* aumento de distância do topo */
+      left: 1rem;
+      display: inline-block;
+      background-color: #f9c74f;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      transition: background-color 0.3s ease;
+      font-size: 0.95rem;
+      z-index: 1000;
+      width: max-content;
+    }
+
+    .btn-voltar:hover {
+      background-color: #000000;
+    }
+    header .logo {
+      height: 120px;
+      transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
+      cursor: pointer;
+    }
+
+    header .logo:hover {
+      transform: scale(1.1);
+      filter: drop-shadow(0 0 10px #c5a017);
+    }
+
+    .icones {
+      position: absolute;
+      right: 1rem;
+      top: 1rem;
+      display: flex;
+      gap: 1rem;
+    }
+
+    .icones img {
+      width: 24px;
+      cursor: pointer;
+    }
+
+    main.atendimento {
+      max-width: 600px;
+      margin: 4rem auto;
+      background-color: #fffef8;
+      border: 2px solid #f6e27f;
+      border-radius: 20px;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 0 15px rgba(198, 160, 39, 0.15);
+    }
+
+    main.atendimento h2 {
+      font-size: 1.8rem;
+      color: #c5a017;
+      margin-bottom: 1rem;
+    }
+
+    main.atendimento p {
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+      color: #3a2f1d;
+    }
+
+    .card-contato {
+      background-color: #ffffff;
+      border: 1px solid #f0e0aa;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      border-radius: 12px;
+      padding: 1.2rem 1.5rem;
+      text-align: left;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .card-contato p {
+      margin: 0.8rem 0;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .card-contato img {
+      width: 18px;
+    }
+
+    footer {
+      background-color: #f6e27f;
+      color: #3a2f1d;
+      text-align: center;
+      padding: 1rem;
+      font-weight: 600;
+      margin-top: 4rem;
+      border-top: 2px solid #c5a017;
+    }
+     .icones {
+      position: absolute;
+      right: 1rem;
+      top: 1rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: nowrap;
+    }
+
+    .icones a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.9rem;
+      white-space: nowrap;
+      user-select: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="topo-oferta">
+    Precisa de ajuda? Fale com a Central de Atendimento da Lumière 💬
+  </div>
+
+  <header class="header">
+    <div class="icones">
+       <a href="lumiere.html" class="btn-voltar"> Voltar à Tela Inicial</a>
+      <a href="favoritos.html">❤️ Favoritos</a>
+      <a href="atendimento.html">🎧 Atendimento</a>
+      <a href="login.html">👤 Minha Conta</a>
+      <a href="carrinho.html">🛍️ Sacola</a>
+    </div>
+    <img src="lumiere.png" alt="Logo Lumière" class="logo" />
+  </header>
+
+  <main class="atendimento">
+    <h2>Central de Atendimento</h2>
+    <p>Entre em contato com a nossa equipe para dúvidas, trocas ou sugestões:</p>
+
+    <div class="card-contato">
+      <p>
+        <img src="whatsapp.png" alt="WhatsApp" />
+        <strong>WhatsApp:</strong> (21) 97978-0146
+      </p>
+      <p>
+        <img src="email.png" alt="E-mail" />
+        <strong>E-mail:</strong> atendimento@lumierestore.com.br
+      </p>
+    </div>
+  </main>
+
+  <footer>
+    Lumière Cosméticos © 2025 - Todos os direitos reservados
+  </footer>
+
+</body>
+</html>

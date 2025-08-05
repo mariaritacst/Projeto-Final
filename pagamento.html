@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pagamento - Lumière Cosméticos</title>
+  <style>
+    body {
+      background-color: #fffdf5;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      color: #3a2f1d;
+    }
+
+     .btn-voltar {
+      position: fixed;
+      top: 3rem; /* aumento de distância do topo */
+      left: 1rem;
+      display: inline-block;
+      background-color: #f9c74f;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      transition: background-color 0.3s ease;
+      font-size: 0.95rem;
+      z-index: 1000;
+      width: max-content;
+    }
+
+    .btn-voltar:hover {
+      background-color: #000000;
+    }
+    .topo-oferta {
+      background-color: #f4e2d8;
+      text-align: center;
+      padding: 8px;
+      font-size: 14px;
+    }
+
+    .header {
+      text-align: center;
+      padding: 10px 20px;
+      position: relative;
+    }
+
+    .header .icones {
+      position: absolute;
+      right: 20px;
+      top: 10px;
+    }
+
+    .header .icones img {
+      width: 24px;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+
+    .logo {
+      width: 140px;
+      margin: 10px auto;
+      display: block;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .resumo, .pagamento {
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      margin-bottom: 20px;
+    }
+
+    .item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .total {
+      font-weight: bold;
+      margin-top: 10px;
+      text-align: right;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 5px;
+    }
+
+    select, input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background-color: #3a2f1d;
+      color: white;
+      border: none;
+      padding: 14px 20px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    button:hover {
+      background-color: #af8028;
+    }
+
+    #toast {
+      visibility: hidden;
+      min-width: 250px;
+      background-color: #28a745;
+      color: #fff;
+      text-align: center;
+      padding: 16px;
+      border-radius: 8px;
+      position: fixed;
+      z-index: 1;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 16px;
+      opacity: 0;
+      transition: opacity 0.5s, visibility 0.5s;
+    }
+
+    #toast.show {
+      visibility: visible;
+      opacity: 1;
+    }
+     .icones {
+      position: absolute;
+      right: 1rem;
+      top: 1rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: nowrap;
+    }
+
+    .icones a {
+      color: #000000;
+      text-decoration: none;
+      font-size: 0.9rem;
+      white-space: nowrap;
+      user-select: none;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="topo-oferta">
+    Último passo! Finalize seu pagamento com segurança 🔒
+  </div>
+
+  <header class="header">
+    <div class="icones">
+       <a href="lumiere.html" class="btn-voltar"> Voltar à Tela Inicial</a>
+       <a href="favoritos.html">❤️ Favoritos</a>
+      <a href="atendimento.html">🎧 Atendimento</a>
+      <a href="login.html">👤 Minha Conta</a>
+      <a href="carrinho.html">🛍️ Sacola</a> </div>
+    <img src="lumiere.png" alt="Logo Lumière" class="logo" />
+  </header>
+
+  <div class="container">
+    <h2>Resumo do Pedido</h2>
+    <div class="resumo" id="resumo">
+      <!-- Itens do carrinho serão inseridos aqui -->
+    </div>
+
+    <h2>Pagamento</h2>
+    <div class="pagamento">
+      <label for="metodo">Método de Pagamento</label>
+      <select id="metodo">
+        <option value="cartao">Cartão de Crédito</option>
+        <option value="pix">PIX</option>
+      </select>
+
+      <button onclick="finalizarPagamento()">Confirmar Pagamento</button>
+    </div>
+  </div>
+
+  <div id="toast">Pagamento realizado com sucesso!</div>
+
+  <script>
+    const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+
+    function exibirResumo() {
+      const resumo = document.getElementById('resumo');
+      if (carrinho.length === 0) {
+        resumo.innerHTML = '<p>Seu carrinho está vazio.</p>';
+        return;
+      }
+
+      let total = 0;
+      resumo.innerHTML = '';
+
+      carrinho.forEach(produto => {
+        const subtotal = produto.preco * produto.quantidade;
+        total += subtotal;
+
+        resumo.innerHTML += `
+          <div class="item">
+            <span>${produto.nome} (x${produto.quantidade})</span>
+            <span>R$ ${subtotal.toFixed(2)}</span>
+          </div>
+        `;
+      });
+
+      resumo.innerHTML += `<div class="total">Total: R$ ${total.toFixed(2)}</div>`;
+    }
+
+    function finalizarPagamento() {
+      const metodo = document.getElementById('metodo').value;
+
+      if (!metodo) {
+        alert("Selecione um método de pagamento.");
+        return;
+      }
+
+      // Limpa o carrinho
+      localStorage.removeItem('carrinho');
+
+      // Mostra notificação
+      const toast = document.getElementById('toast');
+      toast.classList.add('show');
+
+      // Redireciona após alguns segundos (simulando sucesso)
+      setTimeout(() => {
+        toast.classList.remove('show');
+        window.location.href = "index.html";
+      }, 3000);
+    }
+
+    exibirResumo();
+  </script>
+
+</body>
+</html>
